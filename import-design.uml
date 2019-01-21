@@ -1,0 +1,21 @@
+@startuml
+(*)  --> "Choose codebase from Git repo"
+If "Is the "devfile" present ?" then
+--> [No] "What is the Build type of the app?  \n\n - Detect if mvn/npm/golang \n - Allow user to modify the suggested build type"
+--> "Which port does the app expose ? \n\n Will use this information to \n create an openshift service/route"
+--> "Which external service do you wish to bind to? \n\n Enable user to choose from a catalog (DB?))"
+--> "How would you bind the app to the DB ? \n\n - Map custom env var WIT_SOME_DB_HOST to db_secret.db_host \n - Map custom env var WIT_SOME_DB_PORT to db_secret.db_port "
+--> "Which (other)environment variables need to be configured? \n\n WIT_ENABLE_DEVELOPER_MODE=1 \n WIT_MAX_SEARCH_LENGTH=10"
+--> "Persist import metadata \n\n - Generate a devfile  \n -Generate a build.yaml ( referenced by devfile ) \n - Generate a deploy.yaml ( referenced by devfile ) \n Ensure that the app labelling \n guidelines are used."
+--> "Create a default pipeline with \n - 1 build and \n - 1 deploy step"
+else
+--> [yes] "Process devfile"
+--> "Create a default pipeline with \n - 1 build and \n - 1 deploy step"
+Endif
+--> "Run pipeline"
+--> "Generate topology"
+--> "App is deployed & \n topology is \n ready for visualization "
+-->(*)
+
+
+@enduml
